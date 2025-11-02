@@ -1,21 +1,37 @@
 <script>
-    //import component
-    
-    export default { 
-        data() {
-            return {
-                soundLevel: 0
-            }
-        }
+export default {
+  data() {
+    return {
+      soundLevel: 0
+    };
+  },
+  computed: {
+    soundIcon() {
+      switch (this.soundLevel) {
+        case 0:
+          return '🔇';
+        case 1:
+          return '🔈';
+        case 2:
+          return '🔉';
+        case 3:
+          return '🔊';
+        default:
+          return '';
+      }
     }
+  }
+};
 </script>
 
 <template>
-
-   Sound level
-    <input type="number" min="0" max="3" v-model="soundLevel"> 
-    <!-- TODO: Add Code Here to make use of the component -->
-    
-
+  <div>
+    <label>
+      Sound level
+      <input type="number" min="0" max="3" v-model="soundLevel" />
+    </label>
+    <span>{{ soundIcon }}</span>
+  </div>
 </template>
+
 

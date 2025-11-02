@@ -1,23 +1,25 @@
 <script>
-    export default {
-        data() {
-            return {
-                desc: '',
-                deadline: '',
-                taskList: []
+export default {
+    data() {
+        return {
+            desc: '',
+            deadline: '',
+            taskList: []
+        }
+    },
+    methods: {
+        add() {
+            if (this.desc && this.deadline) {
+                this.taskList.push({ desc: this.desc, deadline: this.deadline });
+                this.desc = '';
+                this.deadline = '';
             }
         },
-        methods: {
-            add() {
-                this.taskList.push( { 'desc': this.desc, 'deadline': this.deadline } )
-                this.desc = ''
-                this.deadline = ''
-            },
-            // TODO: Add a new method, to delete a task completed
-            
+        remove(index) {
+            this.taskList.splice(index, 1);
         }
     }
-
+}
 </script>
 
 <template>
@@ -33,11 +35,17 @@
     <button type="button" @click="add" class="btn btn-primary">Add New Task</button>
     <hr>
 
-    <!-- TODO: Modify following code -->
-    <task-tracker ></task-tracker>
-
+    <!-- Display tasks -->
+    <div v-for="(task, index) in taskList" :key="index" class="card mb-2 p-2">
+        <p>{{ task.desc }}</p>
+        <small>Deadline: {{ task.deadline }}</small>
+        <button type="button" class="btn btn-success btn-sm mt-2" @click="remove(index)">Done</button>
+    </div>
 </template>
 
 <style scoped>
-   
+.card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 </style>
